@@ -1,0 +1,9 @@
+### 25 — Generators as Pipelines
+```python
+# Log lines look like: "2026-07-08T10:00:00 ERROR service=auth msg=..."
+def read_lines(path): ...
+def parse(lines): ...        # yield dicts
+def only_errors(records): ...
+def by_service(records, service): ...
+```
+**Complete:** Implement all four as lazy generator stages, compose them into a pipeline, and add a fifth stage `window(records, n)` that yields lists of `n` consecutive records (last window may be short) — without ever holding more than `n` records in memory.
