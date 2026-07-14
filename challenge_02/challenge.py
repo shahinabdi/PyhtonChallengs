@@ -1,12 +1,14 @@
+from dataclasses import dataclass,field
+
+
+@dataclass
 class Server:
-    def __init__(self, host, port, tags=None, healthy=True):
-        self.host = host
-        self.port = port
-        self.tags = tags if tags is not None else []
-        self.healthy = healthy
-
+    host: str
+    port: int
+    tags: list[str] = field(default_factory=list, compare=False)
+    healthy: bool = field(default=True, compare=False)
+    # compare=False in the field definitions 
+    # ensures that these attributes are ignored
+    # in the generated __eq__ method
     def __repr__(self):
-        return "Server(%s:%s)" % (self.host, self.port)
-
-    def __eq__(self, other):
-        return (self.host, self.port) == (other.host, other.port)
+        return f"Server({self.host}:{self.port})"
